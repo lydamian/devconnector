@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
+import DashboardActions from './DashboardActions'
 import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({ getCurrentProfile, auth : { user }, profile: { profile, loading } }) => {
@@ -19,7 +20,8 @@ const Dashboard = ({ getCurrentProfile, auth : { user }, profile: { profile, loa
 			<i class="fas fa-user"> Welcome { user && user.name }</i> 
 		</p>
 		{ profile !== null ? 
-			(<Fragment>has
+			(<Fragment>
+				<DashboardActions />
 			</Fragment>  
 				) : 
 			(<Fragment>
