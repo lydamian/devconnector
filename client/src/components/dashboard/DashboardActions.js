@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 const DashboardActions = () => {
     return (
         <div>
-            <div class="dash-buttons">
-                <Link to="/edit-profile" class="btn btn-light">
-                    <i class="fas fa-user-circle text-primary"></i>
+            <div className="dash-buttons">
+                <Link to="/edit-profile" className="btn btn-light">
+                    <i className="fas fa-user-circle text-primary"></i>
                     &nbsp;Edit Profile
                 </Link>
-                <Link to="/add-experience" class="btn btn-light">
-                    <i class="fab fa-black-tie text-primary"></i>
+                <Link to="/add-experience" className="btn btn-light">
+                    <i className="fab fa-black-tie text-primary"></i>
                     &nbsp;Add Experience
                 </Link>
-                <Link to="/add-education" class="btn btn-light">
-                    <i class="fas fa-graduation-cap text-primary"></i>
+                <Link to="/add-education" className="btn btn-light">
+                    <i className="fas fa-graduation-cap text-primary"></i>
                     &nbsp;Add Education
                 </Link>
             </div>
