@@ -99,5 +99,5 @@ const mapStateToProps = state => ({
 
 
 export default connect(
-	null, { setAlert, register }
+	mapStateToProps, { setAlert, register }
 	)(Register);
