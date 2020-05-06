@@ -7,7 +7,7 @@ const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// @route   POST api/post
+// @route   POST api/posts
 // @desc    Create a Post
 // @access  Private
 router.post('/', [ auth, 
@@ -43,7 +43,7 @@ async (req, res) => {
 
 });
 
-// @route   GET api/post
+// @route   GET api/posts
 // @desc    Get all posts
 // @access  Private
 router.get('/', auth, async (req, res) => {
@@ -56,10 +56,11 @@ router.get('/', auth, async (req, res) => {
 	}
 });
 
-// @route   GET api/post/:id
+// @route   GET api/posts/:id
 // @desc    Get post by ID
 // @access  Private
 router.get('/:id', auth, async (req, res) => {
+	console.log("what is happening here");
 	try{
 		const post = await Post.findById(req.params.id);
 		
@@ -79,10 +80,10 @@ router.get('/:id', auth, async (req, res) => {
 	}
 });
 
-// @route   DELETE api/post/:id
+// @route   DELETE api/posts/:id
 // @desc    Delete a post
 // @access  Private
-router.get('/:id', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
 	try{
 		const post = await Post.findById(req.params.id);
 	
@@ -92,7 +93,7 @@ router.get('/:id', auth, async (req, res) => {
 		}
 
 		// Check error not found
-		if(!post.user.toString() !== req.user.id){
+		if(post.user.toString() !== req.user.id){
 			return res.status(401).json({ msg: 'User not authorized'});
 		}
 
@@ -118,14 +119,13 @@ router.put('/like/:id', auth, async(req, res) => {
 		const post = await Post.findById(req.params.id);
 
 		// Check if the post has already been liked by this user
-		if(post.likes.filter(like => like.user.toString() === req.user.id.length > 0)){
+		if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
 			return res.status(400).json({ msg: 'Post already liked'});
 		}
 
 		post.likes.unshift({ user: req.user.id });
 
 		await post.save();
-
 		res.status(200).json(post.likes);
 
 	} catch(err){
@@ -137,12 +137,12 @@ router.put('/like/:id', auth, async(req, res) => {
 // @route   PUT api/posts/unlike/:id
 // @desc    Like a post
 // @access  Private
-router.put('/like/:id', auth, async(req, res) => {
+router.put('/unlike/:id', auth, async(req, res) => {
 	try{
 		const post = await Post.findById(req.params.id);
 
 		// Check if the post has already been liked by this user
-		if(post.likes.filter(like => like.user.toString() === req.user.id.length === 0)){
+		if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0){
 			return res.status(400).json({ msg: 'Post has not yet been liked'});
 		}
 
